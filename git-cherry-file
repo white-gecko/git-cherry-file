@@ -1,0 +1,11 @@
+#!/bin/sh
+## Done by Natanael 2023-01-31
+# see also: https://stackoverflow.com/a/42623347/414075
+commit=$1
+file=$2
+target_file=${3:-${file}.cherry}
+echo "Pick ${file} from commit ${commit}"
+file_id=$( git ls-tree --object-only -r ${commit} ${file} )
+echo "It has the object id ${file_id}"
+git show --format=raw ${file_id} > ${target_file}
+echo "Written to ${target_file}"
